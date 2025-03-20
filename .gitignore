@@ -1,0 +1,35 @@
+# Arquivos de build
+bin/
+obj/
+Debug/
+Release/
+
+# Arquivos de Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Arquivos de Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Arquivos de ambiente
+*.env
+appsettings.Development.json
+appsettings.Production.json
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+
+# Arquivos de banco de dados
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db 
