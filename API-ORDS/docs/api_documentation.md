@@ -40,7 +40,7 @@ Valida um CPF e retorna informações sobre sua validade.
 
 #### POST /cep/validate
 
-Valida um CEP e retorna informações sobre o endereço associado.
+Valida um CEP e retorna informações sobre o endereço associado, utilizando a API ViaCEP.
 
 **Request Body:**
 ```json
@@ -68,6 +68,7 @@ Valida um CEP e retorna informações sobre o endereço associado.
 - 200: CEP válido e encontrado
 - 400: CEP inválido
 - 404: CEP não encontrado
+- 503: Erro ao consultar ViaCEP
 
 ## Exemplos de Uso
 
@@ -125,5 +126,19 @@ print(response.json())
 
 1. A API aceita CPFs e CEPs com ou sem formatação
 2. A resposta sempre inclui o valor formatado
-3. Para CEPs, é necessário ter uma tabela `enderecos` configurada no banco de dados
-4. A API retorna mensagens em português 
+3. A validação de CEP utiliza a API pública ViaCEP
+4. A API retorna mensagens em português
+5. Para CEPs, é necessário ter o APEX Web Service habilitado no Oracle Database
+6. A API ViaCEP tem limites de requisição, consulte a documentação oficial
+
+## Integração com ViaCEP
+
+A API utiliza a ViaCEP para consulta de endereços. Algumas considerações importantes:
+
+1. A ViaCEP é uma API pública e gratuita
+2. Não é necessário cadastro ou chave de API
+3. A API tem limites de requisição por minuto
+4. Em caso de falha na consulta, a API retornará erro 503
+5. Os dados retornados são atualizados periodicamente pela ViaCEP
+
+Para mais informações sobre a ViaCEP, consulte: https://viacep.com.br/ 
