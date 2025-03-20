@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PaymentAPI.Data;
 using PaymentAPI.Models;
+using PaymentAPI.Utils;
 
 namespace PaymentAPI.Controllers
 {
@@ -39,6 +40,11 @@ namespace PaymentAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
+            if (!CpfValidator.IsValid(user.CPF))
+            {
+                return BadRequest("CPF inválido");
+            }
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
@@ -51,6 +57,11 @@ namespace PaymentAPI.Controllers
             if (id != user.Id)
             {
                 return BadRequest();
+            }
+
+            if (!CpfValidator.IsValid(user.CPF))
+            {
+                return BadRequest("CPF inválido");
             }
 
             user.UpdatedAt = DateTime.UtcNow;
@@ -96,4 +107,4 @@ namespace PaymentAPI.Controllers
             return _context.Users.Any(e => e.Id == id);
         }
     }
-} 
+}
